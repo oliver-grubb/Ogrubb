@@ -1,0 +1,787 @@
+<html>
+
+<head>
+       <title>Vue Work</title>
+    <script src=./js/vue.js> </script> </head> <body>
+
+        <div id="app1">
+            <br><p class="digitalTime">{{Time}}</p>
+        </div>
+        <div id="app2">
+            <div class='loginBox'>
+                <h3>Username: </h3>
+                    <input v-model="username" placeholder="Username">
+                    <h3>Password: </h3>
+                    <input type="password" v-model="password" placeholder="Password"><br><br>
+                    <button class='submitButton' v-on:click="checkCredentials()">Login</button>
+            </div>
+            <p v-if="seen" class="loginSucessBox">Login Successful!</p>
+        
+        </div>
+        <div id="app3">
+            <h1 class="quizTitle">Giraffe Quiz</h1>
+            <h4 class="q1">Question 1:</h4>
+            <p class="q1">How tall was the tallest Giraffe who ever lived?</p>
+            <select v-model='answerA'>
+                    <option >19ft</option>
+                    <option >18ft</option>
+                    <option >17ft</option>
+                    <option >16ft</option>
+                  </select><br>
+            <h4 class="q2">Question 2:</h4>
+            <p class="q2">How short was the shortest giraffe who ever lived?</p>
+            <select v-model='answerB'>
+                    <option >4ft5</option>
+                    <option >5ft3</option>
+                    <option >2ft9</option>
+                    <option >7ft3</option>
+                  </select><br>
+            <h4 class="q3">Question 3:</h4>
+            <p class="q3">What do giraffes taste like?</p>
+            <select v-model='answerC'>
+                    <option >Chicken</option>
+                    <option >Beef</option>
+                    <option >Horse</option>
+                    <option >Pork</option>
+                  </select><br>
+            <h4 class="q4">Question 4:</h4>
+            <p class="q4">Where did Geoffrey go after Toys'r'us shut down?</p>
+            <select v-model='answerD'>
+                    <option >Holiday</option>
+                    <option >Job Centre</option>
+                    <option >Glue Factory</option>
+                    <option >Heaven</option>
+                  </select><br>
+            <button v-on:click="checkAnswers()">Submit</button>
+        </div>
+        <div id="app4">
+            <table id="infoTable">
+                <thread>
+                    <tr>
+                        <th v-for="col in columns">{{col}}</th>
+                        <th></th>
+                    </tr>
+                </thread>
+                <tbody>
+                    <tr v-for="row in rows">
+                        <td v-for="col in columns">
+                            {{row[col]}}
+                        </td>
+                        <td class="actions">
+                                <button v-on:click="deleteRow(row)">X</i>
+
+                                </button>
+                        </td>
+                    </tr>
+                        </tbody>
+                        </table>
+        </div>
+        <div id="app5">
+            <div class='inputForm'>
+                    <h1>Form Input</h1><br> 
+                    <h4>Name: </h4>
+                    <input v-model='Name' placeholder = "First Name">
+                    <h4>Surname: </h4>
+                    <input v-model='Surname' placeholder = "Last Name">
+                    <h4>Age: </h4>
+                    <input v-model='Age' placeholder = "Age">
+                    <button v-on:click='submit'>Submit</button>
+            </div>
+            
+        </div>
+        <div id="app6">
+            <h1>Clothes Shop</h1>
+            <div class='item1Box'>
+                    
+                    <p class='item1'>T-Shirt: £15.99</p>
+                    <button v-on:click='sub(15.99, 1)'>-</button>
+                    <p id='item1Counter' class='item1'>{{item1Counter}}</p>
+                    <button v-on:click='add(15.99, 1)'>+</button>
+            </div>
+            <br>
+            <div class='item2Box'>
+                    
+                    <p class='item2'>5 Pack of Socks: £10.99</p>
+                    <button v-on:click='sub(10.99, 2)'>-</button>
+                    <p id='item2Counter' class='item1'>{{item2Counter}}</p>
+                    <button v-on:click='add(10.99, 2)'>+</button>
+            </div>
+            <br>
+            <div class='item3Box'>
+                    <p class='item3'>Leather Jacket: £87.99</p>
+                    <button v-on:click='sub(87.99, 3)'>-</button>
+                    <p id='item3Counter' class='item3'>{{item3Counter}}</p>
+                    <button v-on:click='add(87.99, 3)'>+</button>
+            </div>
+            <br>
+            <div class='item4Box'>
+                    <p class='item4'>Spare Laces: £2.50</p>
+                    <button v-on:click='sub(2.50, 4)'>-</button>
+                    <p id='item4Counter' class='item4'>{{item4Counter}}</p>
+                    <button v-on:click='add(2.50, 4)'>+</button>
+            </div>
+            <h2>{{'£'+total}}</h2>
+        </div>
+        <div id="app7">
+            <br><input v-model="searchBar" placeholder="Search"><br><br>
+            <div class='list1' v-for="game in filteredgames">
+                    <span><img v-bind:src= "game.coverPic" height="60px" width="50px"/>{{game.title}}</span>
+            </div>
+        </div>
+        <div id="app8">
+            <button v-on:click="flipToggle()" class='toggleButton'>Grid</i></button>
+            <div v-if="toggle == false" v-for="game in games">
+                    <img v-bind:src= "game.coverPic" height="60px" width="50px"/>
+                    <span>{{game.title}}</span>
+            </div>
+            <div v-if="toggle == true" v-for="game in games.slice(0,3)">
+                    <img v-bind:src= "game.coverPic" height="180px" width="110px" class="row1"/>
+            </div>
+            <br> <br> <br>            <br> <br> <br>
+
+            
+            
+            <div v-if="toggle == true" v-for="game in games.slice(3,6)">
+                <img v-bind:src="game.coverPic" height="180px" width="110px" class="row2" />
+            </div>
+            <br> <br> <br>            <br> <br> <br>
+
+            <div v-if="toggle == true" v-for="game in games.slice(6,9)">
+                   <img v-bind:src= "game.coverPic" height="180px" width="110px" class="row3"/>
+            </div>
+        </div>
+        <div id="app9">
+            <div class='container'>
+                    <br><image src='./js/8ball.png' height=400px width=400px></image><br>
+                    <p class='BallAnswer'>{{ans}}</p>
+            </div>
+            <input class='questionBox' v-model='inputBox' placeholder="What is your question?"><br>
+            <button class='askButton' v-on:click='generateAnswer()'>Ask!</button><br>
+        </div>
+
+        <script>
+            var clock = new Vue({
+                el: '#app1',
+                data: {
+                    Time: 'Getting time...'
+                },
+                methods: {
+                    getTime: function () {
+                        var date = new Date();
+                        var hours = date.getHours();
+                        var minutes = date.getMinutes();
+                        var seconds = date.getSeconds();
+
+                        if (hours < 10) {
+                            hours = '0' + hours;
+                        }
+                        if (minutes < 10) {
+                            minutes = '0' + minutes;
+                        }
+                        if (seconds < 10) {
+                            seconds = '0' + seconds;
+                        }
+                        this.Time = hours + ':' + minutes + ':' + seconds;
+                    }
+                },
+                mounted() {
+                    setInterval(this.getTime, 1000);
+                }
+            });
+            var loginForm = new Vue({
+                el: '#app2',
+                data: {
+                    username: '',
+                    password: '',
+                    seen: false
+                },
+                methods: {
+                    checkCredentials: function () {
+                        if (this.username == 'Oliver' && this.password == '1234') {
+                            this.seen = true;
+                        }
+                    }
+                }
+            })
+            var ex3 = new Vue({
+                el: '#app3',
+                data: {
+                    answerA: '',
+                    answerB: '',
+                    answerC: '',
+                    answerD: ''
+                },
+                methods: {
+                    checkAnswers: function () {
+                        if (this.answerA == '19ft' && this.answerB == '5ft3' && this.answerC == 'Horse' && this.answerD == 'Glue Factory') {
+                            var audio = new Audio("./js/cheer.mp3");
+                            audio.play();
+                        }
+                        else {
+                            alert("WRONG");
+                        }
+                    }
+                }
+            })
+            var ex4 = new Vue({
+                el: '#app4',
+                data: {
+                    rows: [
+                        { FirstName: 'Oliver', Surname: 'Grubb', Age: '21' },
+                        { FirstName: 'Steve', Surname: 'Williams', Age: '22' },
+                        { FirstName: 'Bob', Surname: 'Doe', Age: '15' },
+                        { FirstName: 'Sean', Surname: 'Smith', Age: '65' },
+                        { FirstName: 'Ben', Surname: 'Dover', Age: '69' }
+                    ]
+
+
+                },
+                computed: {
+                    "columns": function columns() {
+                        if (this.rows.length == 0) {
+                            return [];
+                        }
+                        return Object.keys(this.rows[0])
+                    }
+                },
+                methods: {
+                    deleteRow: function (row) {
+                        var toDelete = JSON.stringify(row);
+                        for (var i = 0; i < this.rows.length; i++) {
+                            var temp = JSON.stringify(this.rows[i]);
+                            if (temp === toDelete) {
+                                this.rows.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+            var ex5 = new Vue({
+                el: '#app5',
+                data: {
+                    Name: '',
+                    Surname: '',
+                    Age: ''
+                },
+                methods: {
+                    submit: function () {
+                        var toInsert = { FirstName: this.Name, Surname: this.Surname, Age: this.Age };
+                        ex4.rows.push(toInsert);
+                    }
+                }
+            })
+            var ex6 = new Vue({
+                el: '#app6',
+                data: {
+                    total: 0,
+                    item1Counter: 0,
+                    item2Counter: 0,
+                    item3Counter: 0,
+                    item4Counter: 0
+                },
+                methods: {
+                    add: function (price, itemNum) {
+                        switch (itemNum) {
+                            case 1:
+                                this.item1Counter++;
+                                break;
+                            case 2:
+                                this.item2Counter++;
+                                break;
+                            case 3:
+                                this.item3Counter++;
+                                break;
+                            case 4:
+                                this.item4Counter++;
+                                break;
+                            default:
+                                break;
+                        }
+                        this.total += price;
+                        this.total = Math.round(this.total * 100) / 100
+                    },
+                    sub: function (price, itemNum) {
+                        switch (itemNum) {
+                            case 1:
+                                if (this.item1Counter == 0) {
+                                    break;
+                                }
+                                this.total -= price;
+                                this.total = Math.round(this.total * 100) / 100
+                                this.item1Counter--;
+                                break;
+                            case 2:
+                                if (this.item2Counter == 0) {
+                                    break;
+                                }
+                                this.total -= price;
+                                this.total = Math.round(this.total * 100) / 100
+                                this.item2Counter--;
+                                break;
+                            case 3:
+                                if (this.item3Counter == 0) {
+                                    break;
+                                }
+                                this.total -= price;
+                                this.total = Math.round(this.total * 100) / 100
+                                this.item3Counter--;
+                                break;
+                            case 4:
+                                if (this.item4Counter == 0) {
+                                    break;
+                                }
+                                this.total -= price;
+                                this.total = Math.round(this.total * 100) / 100
+                                this.item4Counter--;
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+                }
+            })
+            var ex7 = new Vue({
+                el: '#app7',
+                data: {
+                    searchBar: '',
+                    games: [
+                        { id: '1', title: 'Red Dead Redemption 2', coverPic: "./js/rdr2cover.jpg" },
+                        { id: '2', title: 'Minecraft', coverPic: './js/minecraftcover.jpg' },
+                        { id: '3', title: 'Kerbal Space Program', coverPic: './js/kspcover.jpg' },
+                        { id: '4', title: 'Civilisation V', coverPic: './js/civ5cover.jpg' },
+                        { id: '4', title: 'Old School Runescape', coverPic: './js/osrscover.jpg' },
+                        { id: '4', title: 'World of Warcraft Classic', coverPic: './js/wowcover.png' },
+                        { id: '4', title: 'Counter Strike', coverPic: './js/counterstrikecover.jpg' },
+                        { id: '4', title: 'League of Legends', coverPic: './js/lolcover.jpg' },
+                        { id: '4', title: 'Grand Theft Auto 5', coverPic: './js/gta5cover.jpg' }
+                    ]
+                },
+                computed:
+                {
+                    filteredgames: function () {
+                        var self = this;
+                        return this.games.filter(function (gam) { return gam.title.toLowerCase().indexOf(self.searchBar.toLowerCase()) >= 0; });
+                    }
+                }
+
+            })
+            var ex8 = new Vue({
+                el: '#app8',
+                data: {
+                    toggle: false,
+                    games: [
+                        { id: '1', title: 'Red Dead Redemption 2', coverPic: "./js/rdr2cover.jpg" },
+                        { id: '2', title: 'Minecraft', coverPic: './js/minecraftcover.jpg' },
+                        { id: '3', title: 'Kerbal Space Program', coverPic: './js/kspcover.jpg' },
+                        { id: '4', title: 'Civilisation V', coverPic: './js/civ5cover.jpg' },
+                        { id: '4', title: 'Old School Runescape', coverPic: './js/osrscover.jpg' },
+                        { id: '4', title: 'World of Warcraft Classic', coverPic: './js/wowcover.png' },
+                        { id: '4', title: 'Counter Strike', coverPic: './js/counterstrikecover.jpg' },
+                        { id: '4', title: 'League of Legends', coverPic: './js/lolcover.jpg' },
+                        { id: '4', title: 'Grand Theft Auto 5', coverPic: './js/gta5cover.jpg' }
+                    ]
+                },
+                methods: {
+                    flipToggle: function () {
+                        if (this.toggle === true) {
+                            this.toggle = false;
+                        }
+                        else if (this.toggle === false) {
+                            this.toggle = true;
+                        }
+
+                    }
+                }
+            })
+            var ex9 = new Vue({
+                el: '#app9',
+                data: {
+                    ans: '',
+                    inputBox: '',
+                    answers:
+                        ['Yes', 'No', 'Absolutely', 'Absolutely Not', 'Maybe', 'Possibly', 'Never', 'Small Chance', 'Large Chance', '100% Sure']
+                },
+                methods: {
+                    generateAnswer: function () {
+                        if (this.inputBox === '') {
+                            this.ans = "You didn't ask anything!";
+                        }
+                        else {
+                            this.inputBox = '';
+                            var randomNum = Math.floor(Math.random() * 10);
+                            this.ans = this.answers[randomNum];
+                        }
+                    }
+                }
+            })
+
+        </script>
+
+    <style>
+        @font-face {
+            font-family: 'digital-clock-font';
+            src: url('./js/DIGITALDREAM.ttf');
+
+        }
+
+        @font-face {
+            font-family: 'animal-text';
+            src: url('./js/CUTE_ANIMAL.ttf');
+
+        }
+
+        #app1 {
+            position: absolute;
+            left: 0%;
+            top: 0%;
+            height: 33.33%;
+            width: 33.33%;
+            border: solid rgb(255, 255, 255);
+            border-width: 5px 5px;
+            letter-spacing: 0.05em;
+            background-color: #000000;
+            text-shadow: 0 0 20px rgb(255, 0, 0), 0 0 20px rgba(10, 175, 230, 0);
+            color: red;
+            font-size: 50px;
+            font-family: 'digital-clock-font', sans-serif;
+            text-align: center;
+
+        }
+
+        #app2 {
+            line-height: 10px;
+            position: absolute;
+            left: 33.33%;
+            top: 0%;
+            height: 33.33%;
+            width: 33.33%;
+            border: solid rgb(255, 255, 255);
+            border-width: 5px 5px;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            background-image: url('./js/loginBackground.jpeg');
+            background-size: cover;
+            background-color: #0011ff;
+            line-height: 5px;
+
+        }
+
+        .loginBox {
+            border-radius: 25px;
+            background-color: rgba(219, 219, 219, 0.644);
+            padding: 10px;
+            margin-left: 80px;
+            margin-right: 80px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .loginSucessBox {
+
+            line-height: 18px;
+            background-color: green;
+            color: white;
+        }
+
+        #app3 {
+            font-size: 10px;
+            position: absolute;
+            left: 66.66%;
+            top: 0%;
+            height: 33.33%;
+            width: 33.33%;
+            border: solid rgb(255, 255, 255);
+            border-width: 5px 5px;
+            border-width: 5px;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            background-image: url('./js/angama.jpeg');
+            background-size: cover;
+            background-color: #c77100;
+        }
+
+        .quizTitle {
+            font-size: 30px;
+            margin-left: 15%;
+            margin-right: 15%;
+            font-family: 'animal-text', sans-serif;
+            color: #a15600;
+            line-height: 10px;
+
+        }
+
+        .q1 {
+            line-height: 10px;
+            font-size: 15px;
+            display: inline-block;
+            margin: 10px;
+            color: rgb(0, 0, 0);
+        }
+
+        .q2 {
+            line-height: 10px;
+            font-size: 15px;
+            display: inline-block;
+            margin: 10px;
+            color: rgb(0, 0, 0);
+        }
+
+        .q3 {
+            line-height: 10px;
+            font-size: 15px;
+            display: inline-block;
+            margin: 10px;
+            color: rgb(0, 0, 0);
+        }
+
+        .q4 {
+            line-height: 10px;
+            font-size: 15px;
+            display: inline-block;
+            margin: 10px;
+            color: rgb(0, 0, 0);
+        }
+
+
+        #app4 {
+            position: absolute;
+            left: 0%;
+            top: 33.33%;
+            height: 33.33%;
+            width: 33.33%;
+            border: solid rgb(255, 255, 255);
+            border-width: 5px 5px;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            background-color: #ffffff;
+        }
+
+        #app4 td,
+        #app4 th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #app4 tr:nth-child(even) {
+            background-color: #95cce5;
+        }
+
+        #app4 th {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            text-align: left;
+            background-color: rgb(62, 182, 238);
+            color: white;
+        }
+
+        table {
+            text-align: left;
+            width: 95%;
+            border-collapse: collapse;
+            border: 3px solid rgb(0, 6, 51);
+            margin: 10px 10px 10px 10px;
+        }
+
+
+        #app5 {
+            font: 1em sans-serif;
+            font-size: 12px;
+            line-height: 5px;
+            position: absolute;
+            left: 33.33%;
+            top: 33.33%;
+            height: 33.33%;
+            width: 33.33%;
+            border: solid rgb(255, 255, 255);
+            border-width: 5px 5px;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            background-image: url('./js/formBackground.jpg');
+            background-size: cover;
+
+        }
+
+        .inputForm {
+            border-radius: 25px;
+            background-color: rgba(211, 211, 211, 0.644);
+            padding: 10px;
+            margin-left: 80px;
+            margin-right: 80px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+        }
+
+        #app6 {
+            line-height: 1px;
+            position: absolute;
+            left: 66.66%;
+            top: 33.33%;
+            height: 33.33%;
+            width: 33.33%;
+            border: solid rgb(255, 255, 255);
+            border-width: 5px 5px;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            background-color: #b3b3b3;
+        }
+
+        .item1 {
+            display: inline-block;
+
+        }
+
+        .item2 {
+            display: inline-block;
+        }
+
+        .item3 {
+            display: inline-block;
+        }
+
+        .item4 {
+            display: inline-block;
+        }
+
+        .item1Box {
+            background-color: rgba(250, 181, 181, 0.644);
+            margin-right: 25%;
+            margin-left: 25%;
+            padding: 2px;
+            border: 2px solid black;
+        }
+
+        .item2Box {
+            background-color: rgba(250, 181, 181, 0.644);
+            margin-right: 25%;
+            margin-left: 25%;
+            padding: 2px;
+            border: 2px solid black;
+
+        }
+
+        .item3Box {
+            background-color: rgba(250, 181, 181, 0.644);
+            margin-right: 25%;
+            margin-left: 25%;
+            padding: 2px;
+            border: 2px solid black;
+
+        }
+
+        .item4Box {
+            background-color: rgba(250, 181, 181, 0.644);
+            margin-right: 25%;
+            margin-left: 25%;
+            padding: 2px;
+            border: 2px solid black;
+
+        }
+
+        #app7 {
+            position: absolute;
+            left: 0%;
+            top: 66.66%;
+            height: 80%;
+            width: 33.33%;
+            border: solid rgb(255, 255, 255);
+            border-width: 5px 5px;
+            color: rgb(0, 0, 0);
+            background-color: #f3a0a0;
+            text-align: center;
+        }
+        .list1 {
+            width: 45%;
+            border: 2px solid rgb(255, 255, 255);
+            margin-left: 1%;
+            margin-right: 1%;
+            margin-bottom: 1%;
+            margin-top: 1%;
+            float: left;
+            padding: 5px;
+        }
+
+        #app8 {
+            text-align: center;
+            position: absolute;
+            left: 33.33%;
+            top: 66.66%;
+            height: 80%;
+            width: 33.33%;
+            border: solid rgb(255, 255, 255);
+            border-width: 5px 5px;
+            color: rgb(255, 255, 255);
+            background-color: #3d627a;
+        }
+
+        .toggleButton {
+            margin-left: 90%;
+        }
+
+        .row1 {
+            border: 2px solid rgb(255, 255, 255);
+            margin-left: 7%;
+            float: left;
+            padding: 5px;
+        }
+
+        .row2 {
+            border: 2px solid rgb(255, 255, 255);
+            margin-left: 7%;
+            float: left;
+            padding: 5px;
+
+        }
+
+        .row3 {
+            border: 2px solid rgb(255, 255, 255);
+            margin-left: 7%;
+            float: left;
+            padding: 5px;
+        }
+
+        #app9 {
+            position: absolute;
+            left: 66.66%;
+            top: 66.66%;
+            height: 80%;
+            width: 33.33%;
+            border: solid rgb(255, 255, 255);
+            border-width: 5px 5px;
+            color: rgb(0, 255, 64);
+            text-align: center;
+            background-image: url('./js/tableTop.jpg');
+            background-size: cover;
+        }
+        .questionBox {
+            position: absolute;
+            top: 87%;
+            transform: translate(-50%, -50%);
+
+        }
+        .askButton {
+            position: absolute;
+            top: 92%;
+            transform: translate(-50%, -50%);
+
+        }
+
+        .container {
+            position: relative;
+            top: 15%;
+            text-align: center;
+            color: white;
+        }
+
+        .BallAnswer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    </body>
+
+</html>
